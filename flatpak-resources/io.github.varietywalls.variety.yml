@@ -17,16 +17,18 @@ finish-args:
   - --talk-name=org.kde.StatusNotifierWatcher
   # Needed for notifications to work.
   - --talk-name=org.freedesktop.Notifications
-  #- --filesystem=xdg-config/variety
-  #- --filesystem=xdg-config/variety-profiles
+  # Store files on the host so that the system can access downloaded wallpapers.
+  - --filesystem=xdg-config/variety
+  - --filesystem=xdg-config/variety-profiles
   # Read images to display as wallpapers
   - --filesystem=xdg-pictures:ro
   # Read wallpapers from /usr/share/backgrounds
   - --filesystem=host-os:ro
   # FIXME: Disabled because the desktop files created don't know that it's a Flatpak app.
   # Register Variety to start on login
-  #- --filesystem=~/.config/autostart
+  - --filesystem=~/.config/autostart
   # Create a desktop file for Variety
+  # Probably best to leave this to Flatpak itself.
   #- --filesystem=~/.local/share/applications
   # Read the current LXQt wallpaper
   - --filesystem=xdg-config/pcmanfm-qt/lxqt/settings.conf:ro
