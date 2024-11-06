@@ -1,11 +1,10 @@
 app-id: io.github.varietywalls.variety
-#runtime: org.freedesktop.Platform
-#runtime-version: '24.08'
-#sdk: org.freedesktop.Sdk
-# GNOME is needed to be able to install python-dbus
-runtime: org.gnome.Platform
-runtime-version: '47'
-sdk: org.gnome.Sdk
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  # Dependency for gexiv2 and libayatana-ido
+  - org.freedesktop.Sdk.Extension.vala
 command: variety
 finish-args:
   - --device=dri
@@ -31,9 +30,27 @@ modules:
   - build-requirements.json
   - non-isolated-build-requirements.json
   - requirements.json
+
+  # dbus-run-session is needed to build dbus-python
+  # It's provided by org.gnome.Sdk//47
+  - name: dbus
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DDBUS_BUILD_TESTS=OFF
+      - -DENABLE_TRADITIONAL_ACTIVATION=OFF
+      - -DENABLE_SYSTEMD=OFF
+      - -DDBUS_BUS_ENABLE_INOTIFY=OFF
+      - -DDBUS_ENABLE_DOXYGEN_DOCS=OFF
+    sources:
+      - type: archive
+        url: https://dbus.freedesktop.org/releases/dbus/dbus-1.14.10.tar.xz
+        sha256: ba1f21d2bd9d339da2d4aa8780c09df32fea87998b73da24f49ab9df1e36a50f
+
   - non-isolated-requirements.json
 
   # Needed by the setup script.
+  # Has a shared module at https://github.com/flathub/shared-modules/blob/master/intltool
   - name: intltool
     buildsystem: simple
     build-commands:
@@ -44,6 +61,7 @@ modules:
         url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
         sha256: 67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd
 
+  # Dependency for gexiv2
   - name: exiv2
     buildsystem: cmake-ninja
     config-opts:
@@ -58,6 +76,8 @@ modules:
   - name: gexiv2
     buildsystem: meson
     build-options:
+      prepend-path: /usr/lib/sdk/vala/bin/
+      prepend-ld-library-path: /usr/lib/sdk/vala/lib
       env:
         - -PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR=/app/share/gir-1.0
         - -PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR=/app/lib/girepository-1.0
@@ -85,6 +105,7 @@ modules:
       - make install
     sources:
       - type: archive
+        # I'm not sure if this is a stable URL.
         url: https://kumisystems.dl.sourceforge.net/project/enlightenment/imlib2-src/1.12.3/imlib2-1.12.3.tar.xz?viasf=1
         sha256: 96244656576a3e0a6f58b78e514ddc919622ac6806711bc231837eee62c1de34
 
@@ -105,6 +126,9 @@ modules:
   - name: libayatana-ido
     buildsystem: cmake-ninja
     builddir: true
+    build-options:
+      prepend-path: /usr/lib/sdk/vala/bin/
+      prepend-ld-library-path: /usr/lib/sdk/vala/lib
     sources:
       - type: archive
         url: https://github.com/AyatanaIndicators/ayatana-ido/archive/refs/tags/0.10.4.tar.gz
@@ -112,6 +136,7 @@ modules:
     
 
   # Optional runtime dependency
+  # Has a shared module at https://github.com/flathub/shared-modules/tree/master/libayatana-appindicator
   - name: libayatana-indicator
     buildsystem: cmake-ninja
     builddir: true
