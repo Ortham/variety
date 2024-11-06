@@ -28,12 +28,12 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 
 ## Known issues
 
-- No desktop entry is created
-- The app icon is wrong
 - The indicator icon doesn't load properly (it's 3 dots on GNOME 3)
-- Favourite operations: only Copy is shown no matter which option is selected in the dropdown
+    - Probably because the icon lives in the Flatpak and isn't accessible at that path outside of it.
 - Indicator icon options do nothing
+- Favourite operations: only Copy is shown no matter which option is selected in the dropdown
 - The autostart option creates a variety.desktop file in the right place, but its Exec command references the variety bin path inside the Flatpak sandbox, so won't work.
+    - Probably need to use a different template if Variety is running as a Flatpak.
 
 Some other issues that probably aren't Flatpak-specific:
 

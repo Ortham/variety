@@ -150,10 +150,16 @@ modules:
     buildsystem: simple
     build-commands:
       # variety.py is apparently needed by the setup script.
-      - cp bin/variety bin/variety.py
+      # - cp bin/variety bin/variety.py
       - python3 setup.py install --prefix /app
       # Remove variety.py again to avoid startup failure.
-      - rm /app/bin/variety.py
+      - mv /app/share/metainfo/variety.appdata.xml /app/share/metainfo/io.github.varietywalls.variety.metainfo.xml
+      - mv /app/share/applications/variety.desktop /app/share/applications/io.github.varietywalls.variety.desktop
+      - mv /app/share/icons/hicolor/scalable/apps/variety.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety.svg
+      - mv /app/share/icons/hicolor/22x22/apps/variety-indicator-dark.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-dark.png
+      - mv /app/share/icons/hicolor/22x22/apps/variety-indicator.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator.png
+
+      # - rm /app/bin/variety.py
     sources:
       - type: dir
         path: ..

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-  <id>variety.desktop</id>
+  <!-- Maybe replace the ID value when building the Flatpak instead of changing it here. -->
+  <id>io.github.varietywalls.variety</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0</project_license>
   <name>Variety</name>
@@ -28,6 +29,13 @@
         desktop is always fresh and unique.
     </p>
   </description>
+
+  <launchable type="desktop-id">io.github.varietywalls.variety.desktop</launchable>
+
+  <provides>
+    <binary>variety</binary>
+  </provides>
+
   <url type="homepage">https://launchpad.net/variety</url>
   <url type="bugtracker">https://github.com/varietywalls/variety/issues</url>
   <update_contact>eclipseo_at_fedoraproject.org</update_contact>
