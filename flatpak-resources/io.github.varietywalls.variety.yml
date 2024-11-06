@@ -3,7 +3,7 @@ runtime: org.freedesktop.Platform
 runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
-  # Dependency for gexiv2 and libayatana-ido
+  # Dependency for gexiv2 and libayatana
   - org.freedesktop.Sdk.Extension.vala
 command: variety
 finish-args:
@@ -12,20 +12,33 @@ finish-args:
   - --socket=fallback-x11
   - --socket=wayland
   - --own-name=com.peterlevi.Variety
-  - --filesystem=~/.config/variety
-  - --filesystem=~/.config/variety-profiles
+  # Needed to display app indicator.
+  - --talk-name=org.kde.StatusNotifierWatcher
+  # Needed for notifications to work.
+  - --talk-name=org.freedesktop.Notifications
+  #- --filesystem=xdg-config/variety
+  #- --filesystem=xdg-config/variety-profiles
   # Read images to display as wallpapers
   - --filesystem=xdg-pictures:ro
-  - --filesystem=~/Pictures:ro
+  # Read wallpapers from /usr/share/backgrounds
+  - --filesystem=host-os:ro
   # FIXME: Disabled because the desktop files created don't know that it's a Flatpak app.
   # Register Variety to start on login
   #- --filesystem=~/.config/autostart
   # Create a desktop file for Variety
   #- --filesystem=~/.local/share/applications
   # Read the current LXQt wallpaper
-  - --filesystem=~/.config/pcmanfm-qt/lxqt/settings.conf:ro
+  - --filesystem=xdg-config/pcmanfm-qt/lxqt/settings.conf:ro
   # Read the current KDE 5 wallpaper
-  - --filesystem=~/.config/plasma-org.kde.plasma.desktop-appletsrc:ro
+  - --filesystem=xdg-config/plasma-org.kde.plasma.desktop-appletsrc:ro
+  # Allow wallpaper to be read and written using gsettings
+  - --filesystem=xdg-run/dconf
+  - --filesystem=~/.config/dconf:ro
+  - --talk-name=ca.desrt.dconf
+  - --env=DCONF_USER_CONFIG_DIR=.config/dconf
+  - --env=GIO_EXTRA_MODULES=/app/lib/gio/modules/
+cleanup:
+# TODO: Figure out what's needed at runtime, remove everything else.
 modules:
   - build-requirements.json
   - non-isolated-build-requirements.json
@@ -50,16 +63,7 @@ modules:
   - non-isolated-requirements.json
 
   # Needed by the setup script.
-  # Has a shared module at https://github.com/flathub/shared-modules/blob/master/intltool
-  - name: intltool
-    buildsystem: simple
-    build-commands:
-      - ./configure --prefix /app
-      - make install
-    sources:
-      - type: archive
-        url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
-        sha256: 67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd
+  - ../shared-modules/intltool/intltool-0.51.json
 
   # Dependency for gexiv2
   - name: exiv2
@@ -122,30 +126,22 @@ modules:
         url: https://feh.finalrewind.org/feh-3.10.3.tar.bz2
         sha256: 5426e2799770217af1e01c2e8c182d9ca8687d84613321d8ab4a66fe4041e9c8
 
-  # Build dependency for libayatana-indicator
-  - name: libayatana-ido
-    buildsystem: cmake-ninja
+  # # Optional runtime dependency
+  - ../shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json
+
+  # libavif-gdk-pixbuf is already included in the platform.
+
+  # Need dconf to actually read/write settings on GNOME
+  - name: DConf
+    buildsystem: meson
     builddir: true
-    build-options:
-      prepend-path: /usr/lib/sdk/vala/bin/
-      prepend-ld-library-path: /usr/lib/sdk/vala/lib
+    config-opts:
+      - -Dbash_completion=false
+      - -Dvapi=false
     sources:
       - type: archive
-        url: https://github.com/AyatanaIndicators/ayatana-ido/archive/refs/tags/0.10.4.tar.gz
-        sha256: bd59abd5f1314e411d0d55ce3643e91cef633271f58126be529de5fb71c5ab38
-    
-
-  # Optional runtime dependency
-  # Has a shared module at https://github.com/flathub/shared-modules/tree/master/libayatana-appindicator
-  - name: libayatana-indicator
-    buildsystem: cmake-ninja
-    builddir: true
-    sources:
-      - type: archive
-        url: https://github.com/AyatanaIndicators/libayatana-indicator/archive/refs/tags/0.9.4.tar.gz
-        sha256: a18d3c682e29afd77db24366f8475b26bda22b0e16ff569a2ec71cd6eb4eac95
-
-  # libavif-gdk-pixbuf is already included in org.gnome.Platform//47 and org.freedesktop.Platform//24.08
+        url: https://download.gnome.org/sources/dconf/0.40/dconf-0.40.0.tar.xz
+        sha256: cf7f22a4c9200421d8d3325c5c1b8b93a36843650c9f95d6451e20f0bcb24533
 
   - name: Variety
     buildsystem: simple
