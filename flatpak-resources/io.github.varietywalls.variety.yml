@@ -1,3 +1,4 @@
+# TODO: Should the app ID be com.peterlevi.Variety?
 app-id: io.github.varietywalls.variety
 runtime: org.freedesktop.Platform
 runtime-version: '24.08'
