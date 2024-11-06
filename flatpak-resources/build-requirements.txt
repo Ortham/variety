@@ -1,0 +1,7 @@
+distutils-extra-python
+
+# The following are needed to build python-dbus.
+meson-python
+setuptools-scm
+scikit-build
+patchelf

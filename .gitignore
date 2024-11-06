@@ -36,6 +36,10 @@ debian/*.log
 debian/*.substvars
 debian/*.debhelper
 debian/variety/
+.flatpak-builder/
+flatpak-repo/
+flatpak-pip-generator
+flatpak-resources/*.json
 
 # PyInstaller
 *.manifest
