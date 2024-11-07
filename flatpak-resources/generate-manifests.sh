@@ -28,4 +28,8 @@ echo "Generating manifests..."
 
 # Handle lxml, configobj and pillow separately because they can't be installed with build isolation enabled.
 ./flatpak-pip-generator --runtime="$RUNTIME" --requirements-file requirements.txt --output flatpak-resources/requirements --build-isolation --ignore-pkg lxml configobj pillow dbus-python
-./flatpak-pip-generator --runtime="$RUNTIME" lxml configobj pillow dbus-python --output flatpak-resources/non-isolated-requirements --ignore-installed lxml 
+
+# Need to use a different runtime here because resolving lxml's dependencies requires dbus-run-session for some reason.
+RUNTIME="org.gnome.Sdk//47"
+flatpak --user install -y flathub "$RUNTIME"
+./flatpak-pip-generator --runtime="$RUNTIME" lxml configobj pillow dbus-python --output flatpak-resources/non-isolated-requirements --ignore-installed lxml
