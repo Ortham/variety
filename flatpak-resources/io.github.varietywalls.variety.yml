@@ -74,7 +74,7 @@ modules:
     config-opts:
       # - -DEXIV2_ENABLE_BMFF=ON
       - -DEXIV2_ENABLE_INIH=OFF
-    builddir: true  
+    builddir: true
     sources:
       - type: archive
         url:  https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.1.tar.gz
@@ -158,6 +158,10 @@ modules:
       - mv /app/share/icons/hicolor/scalable/apps/variety.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety.svg
       - mv /app/share/icons/hicolor/22x22/apps/variety-indicator-dark.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-dark.png
       - mv /app/share/icons/hicolor/22x22/apps/variety-indicator.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator.png
+      - mv /app/share/variety/media/variety-indicator-num1.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num1.png
+      - mv /app/share/variety/media/variety-indicator-num2.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num2.png
+      - mv /app/share/variety/media/variety-indicator-num3.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num3.png
+      - mv /app/share/variety/media/variety-indicator-num4.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num4.png
 
       # - rm /app/bin/variety.py
     sources:

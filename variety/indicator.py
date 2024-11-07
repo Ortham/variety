@@ -24,9 +24,9 @@ from gi.repository import Gtk  # pylint: disable=E0611
 from variety.Util import Util, _
 from variety_lib import varietyconfig
 
-THEME_ICON_NAME = "variety-indicator"
-THEME_ICON_NAME_DARK = "variety-indicator-dark"
-THEME_ICON_NAME_NUM = "variety-indicator-num{}"
+THEME_ICON_NAME = "io.github.varietywalls.variety-indicator"
+THEME_ICON_NAME_DARK = "io.github.varietywalls.variety-indicator-dark"
+THEME_ICON_NAME_NUM = "io.github.varietywalls.variety-indicator-num{}"
 
 try:
     import gi
@@ -333,7 +333,7 @@ class Indicator:
         def on_indicator_scroll_status_icon(status_icon, event):
             window.on_indicator_scroll(None, 1, event.direction)
 
-        icon_path = varietyconfig.get_data_file("media", "variety-indicator.png")
+        icon_path = varietyconfig.get_data_file("media", "{}.png".format(THEME_ICON_NAME))
         if use_appindicator:
             self.indicator = AppIndicator3.Indicator.new(
                 "variety", "", AppIndicator3.IndicatorCategory.APPLICATION_STATUS
@@ -380,25 +380,25 @@ class Indicator:
                 set_from_theme_icon(THEME_ICON_NAME)
                 return
             else:
-                icon_path = varietyconfig.get_data_file("media", "variety-indicator.png")
+                icon_path = varietyconfig.get_data_file("media", "{}.png".format(THEME_ICON_NAME))
         elif icon == "Dark":
             if Gtk.IconTheme.get_default().has_icon(THEME_ICON_NAME_DARK):
                 set_from_theme_icon(THEME_ICON_NAME_DARK)
                 return
             else:
-                icon_path = varietyconfig.get_data_file("media", "variety-indicator-dark.png")
+                icon_path = varietyconfig.get_data_file("media", "{}.png".format(THEME_ICON_NAME_DARK))
         elif icon in ["1", "2", "3", "4"]:
             if Gtk.IconTheme.get_default().has_icon(THEME_ICON_NAME_NUM.format(icon)):
                 set_from_theme_icon(THEME_ICON_NAME_NUM.format(icon))
                 return
             else:
                 icon_path = varietyconfig.get_data_file(
-                    "media", "variety-indicator-num{}.png".format(icon)
+                    "media", THEME_ICON_NAME_NUM.format("{}.png".format(icon))
                 )
         elif icon and os.access(icon, os.R_OK) and Util.is_image(icon):
             icon_path = icon
         else:
-            icon_path = varietyconfig.get_data_file("media", "variety-indicator.png")
+            icon_path = varietyconfig.get_data_file("media", "{}.png".format(THEME_ICON_NAME))
 
         if self.indicator:
             logger.info(lambda: "Showing indicator icon image: " + icon_path)
