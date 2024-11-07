@@ -15,7 +15,7 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Filtering options
 - Wallpaper change timer
 - Wallpaper change on start
-
+- Indicator icon options (light, dark, 1, 2, 3, 4, current wallpaper, custom image and none)
 
 ## Things untested
 
@@ -28,9 +28,6 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 
 ## Known issues
 
-- The indicator icon doesn't load properly (it's 3 dots on GNOME 3)
-    - Probably because the icon lives in the Flatpak and isn't accessible at that path outside of it.
-- Indicator icon options do nothing
 - Favourite operations: only Copy is shown no matter which option is selected in the dropdown
 - The autostart option creates a variety.desktop file in the right place, but its Exec command references the variety bin path inside the Flatpak sandbox, so won't work.
     - Probably need to use a different template if Variety is running as a Flatpak.
