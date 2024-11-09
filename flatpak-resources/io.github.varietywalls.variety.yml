@@ -35,7 +35,7 @@ finish-args:
   - --filesystem=xdg-config/plasma-org.kde.plasma.desktop-appletsrc:ro
   # Allow wallpaper to be read and written using gsettings
   - --filesystem=xdg-run/dconf
-  - --filesystem=~/.config/dconf:ro
+  - --filesystem=xdg-config/dconf:ro
   - --talk-name=ca.desrt.dconf
   - --env=DCONF_USER_CONFIG_DIR=.config/dconf
   - --env=GIO_EXTRA_MODULES=/app/lib/gio/modules/

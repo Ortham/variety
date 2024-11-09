@@ -2729,6 +2729,7 @@ class VarietyWindow(Gtk.Window):
                 file = file[1:-1]
 
             file = file.replace("file://", "")
+            file = Util.resolve_path(file)
             return file
         except Exception:
             logger.exception(lambda: "Could not get current wallpaper")

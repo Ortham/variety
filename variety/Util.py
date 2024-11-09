@@ -847,28 +847,29 @@ class Util:
         return path.startswith(flatpak_config)
 
     @staticmethod
+    def map_path(original_path, new_path):
+        print("Mapped {} to {}".format(original_path, new_path))
+        return new_path
+
+    @staticmethod
     def resolve_path(path):
         host_mount = "/run/host"
 
         if Util.is_flatpak():
             if path.startswith('/usr'):
-                # Probably running as a Flatpak
-                original_path = path
-                path = host_mount + path
-                print('Mapped {} to {}'.format(original_path, path))
+                return Util.map_path(path, host_mount + path)
             elif path.startswith("/run/host"):
-                original_path = path
-                path = path[9:]
-                print('Mapped {} to {}'.format(original_path, path))
+                return Util.map_path(path, path[9:])
 
             user = os.environ.get("USER")
+            flatpak_id = os.environ.get("FLATPAK_ID")
             flatpak_config = "/var/home/{}/.config/variety/".format(user)
             if path.startswith(flatpak_config):
-                flatpak_id = os.environ.get("FLATPAK_ID")
                 path_suffix = path[len(flatpak_config):]
-                original_path = path
-                path = "/home/{}/.var/app/{}/.config/variety/{}".format(user, flatpak_id, path_suffix)
-                print('Mapped {} to {}'.format(original_path, path))
+                new_path = "/home/{}/.var/app/{}/.config/variety/{}".format(user, flatpak_id, path_suffix)
+                return Util.map_path(path, new_path)
+            elif path.startswith("/home/{}/.var/app/{}".format(user, flatpak_id)):
+                return Util.map_path(path, "/var" + path)
 
         return path
 
