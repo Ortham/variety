@@ -824,13 +824,27 @@ class Util:
     def open_path(path):
         print('Attempting to open path', path)
 
-        path = Util.resolve_path(path)
+        if Util.is_flatpak():
+            if Util.is_host_usr_path():
+                path = Util.resolve_path(path)
+            elif Util.is_flatpak_config_path(path):
+                path = "/var" + Util.resolve_path(path)
 
         subprocess.Popen(["xdg-open", path])
 
     @staticmethod
     def is_flatpak():
         return 'FLATPAK_ID' in os.environ
+
+    @staticmethod
+    def is_host_usr_path(path):
+        return path.startswith("/usr")
+
+    @staticmethod
+    def is_flatpak_config_path(path):
+        user = os.environ.get("USER")
+        flatpak_config = "/var/home/{}/.config/variety/".format(user)
+        return path.startswith(flatpak_config)
 
     @staticmethod
     def resolve_path(path):

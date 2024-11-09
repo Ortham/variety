@@ -17,7 +17,7 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Wallpaper change on start
 - Indicator icon options (light, dark, 1, 2, 3, 4, current wallpaper, custom image and none)
 - Desktop icon actions
-- App indicator actions
+- App indicator actions (including image and quote menu actions)
 - Open folder
 - Autostart
 
@@ -36,9 +36,13 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 
 - The get_wallpaper script always returns the default wallpaper on GNOME 3
 - Wallpaper move to favourites causes a hang
+- Set EXIF Rating submenu dropdown is empty
+- AppIndicator -> Quote -> Copy to Clipboard does nothing
+    - Might be a Wayland issue?
 
 Some other issues that probably aren't Flatpak-specific:
 
 - Flickr photo download fails with an API key error
 - Google Earth View responds with a 404
 - Fails to parse the Nat Geo server-side response
+- AppIndicator -> Quote -> View at UNIX fortune program does nothing
