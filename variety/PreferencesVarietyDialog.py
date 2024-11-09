@@ -20,7 +20,6 @@ import logging
 import os
 import random
 import stat
-import subprocess
 import threading
 
 from gi.repository import Gdk, GdkPixbuf, GObject, Gtk  # pylint: disable=E0611

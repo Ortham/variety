@@ -8,7 +8,7 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Displaying wallpapers from Bing
 - Displaying wallpapers from Nasa
 - Displaying wallpapers from a local folder inside $HOME/Pictures
-- Displaying quotes from Goodreads, TheQuotationsPage.com, UNIX fortune program and Urban Dictionary
+- Displaying quotes from Goodreads, TheQuotationsPage.com and Urban Dictionary
 - Wallpaper effects
 - Clock
 - Fetch folder clipboard monitoring
@@ -29,6 +29,7 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Fetch folder drag 'n' drop
 - Login screen support
 - Profiles
+- Variety slideshow integration
 
 ## Known issues
 

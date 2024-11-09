@@ -52,6 +52,7 @@ modules:
     buildsystem: cmake-ninja
     builddir: true
     config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
       - -DDBUS_BUILD_TESTS=OFF
       - -DENABLE_TRADITIONAL_ACTIVATION=OFF
       - -DENABLE_SYSTEMD=OFF
@@ -71,7 +72,7 @@ modules:
   - name: exiv2
     buildsystem: cmake-ninja
     config-opts:
-      # - -DEXIV2_ENABLE_BMFF=ON
+      - -DCMAKE_BUILD_TYPE=Release
       - -DEXIV2_ENABLE_INIH=OFF
     builddir: true
     sources:
@@ -128,10 +129,24 @@ modules:
         url: https://feh.finalrewind.org/feh-3.10.3.tar.bz2
         sha256: 5426e2799770217af1e01c2e8c182d9ca8687d84613321d8ab4a66fe4041e9c8
 
-  # # Optional runtime dependency
+  # Optional runtime dependency
   - ../shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json
 
   # libavif-gdk-pixbuf is already included in the platform.
+
+  # Optional runtime dependency
+  - name: fortune-mod
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DNO_OFFENSIVE=TRUE
+    sources:
+      - type: archive
+        url: https://github.com/shlomif/fortune-mod/releases/download/fortune-mod-3.22.0/fortune-mod-3.22.0.tar.xz
+        sha256: 069321bb4d4ae3abf55493d043cea06534dc93f1a2c29e86694d9edb1380a0e3
+      - type: patch
+        path: patches/fortune-mod-no-man.patch
 
   # Need dconf to actually read/write settings on GNOME
   - name: DConf
@@ -149,6 +164,8 @@ modules:
     buildsystem: simple
     build-commands:
       - python3 setup.py install --prefix /app
+
+      - cp /app/games/fortune /app/bin/fortune
 
       - mv /app/share/metainfo/variety.appdata.xml /app/share/metainfo/io.github.varietywalls.variety.metainfo.xml
       - mv /app/share/applications/variety.desktop /app/share/applications/io.github.varietywalls.variety.desktop

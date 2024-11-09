@@ -1,0 +1,27 @@
+diff --git a/fortune-mod/CMakeLists.txt b/fortune-mod/CMakeLists.txt
+index 9ed00fb..89b7bed 100644
+--- a/fortune-mod/CMakeLists.txt
++++ b/fortune-mod/CMakeLists.txt
+@@ -221,8 +221,6 @@ SET (_my_man_pages_list)
+ 
+ LIST(APPEND _my_man_pages_list "${_my_man_page}")
+ 
+-INSTALL_RENAME_MAN("fortune.6" "6" "fortune" "${_my_man_page_dir}")
+-
+ SET (_util_dir "${CMAKE_CURRENT_SOURCE_DIR}/util")
+ MACRO(_fortune__generate_docbook basename offensive_flags)
+ 
+@@ -271,12 +269,11 @@ MACRO(_fortune__generate_manpage basename)
+ ENDMACRO()
+ 
+ _fortune__generate_manpage("strfile")
+-INSTALL_RENAME_MAN("strfile.man" "1" "strfile" "${_my_man_page_dir}")
+ _fortune__generate_manpage("randstr")
+ 
+ ADD_CUSTOM_TARGET(
+     generate_man_page
+-    ALL DEPENDS ${_my_man_pages_list}
++    DEPENDS ${_my_man_pages_list}
+ )
+ 
+ INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/util")
