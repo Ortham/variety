@@ -968,6 +968,9 @@ class Util:
 
     @staticmethod
     def get_exec_path():
+        if Util.is_flatpak():
+            return "/usr/bin/flatpak run --command=variety {}".format(os.environ.get("FLATPAK_ID"))
+
         return os.path.abspath(sys.argv[0])
 
     @staticmethod
