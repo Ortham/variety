@@ -101,8 +101,8 @@ modules:
       - make install
     sources:
       - type: archive
-        url: https://imagemagick.org/archive/ImageMagick-7.1.1-39.tar.xz
-        sha256: b5a18ed9eb0db1e5e1fde26fc95f38bd7d71d9de05dde8b23c238debe332fada
+        url: https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-39.tar.gz
+        sha256: b2eb652d9221bdeb65772503891d8bfcfc36b3b1a2c9bb35b9d247a08965fd5d
 
   # Build dependency for Feh
   - name: Imlib2
