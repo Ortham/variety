@@ -714,7 +714,7 @@ class Options:
         self.sources = [
             [True, Options.SourceType.FAVORITES, "The Favorites folder"],
             [True, Options.SourceType.FETCHED, "The Fetched folder"],
-            [True, Options.SourceType.FOLDER, "/usr/share/backgrounds/"],
+            [True, Options.SourceType.FOLDER, Util.get_system_backgrounds_path()],
             [
                 True,
                 Options.SourceType.FLICKR,

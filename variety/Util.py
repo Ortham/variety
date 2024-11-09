@@ -821,6 +821,14 @@ class Util:
             return os.path.expanduser("~/Pictures")
 
     @staticmethod
+    def open_path(path):
+        subprocess.Popen(["xdg-open", path])
+
+    @staticmethod
+    def get_system_backgrounds_path():
+        return "/usr/share/backgrounds"
+
+    @staticmethod
     def superuser_exec(*command_args):
         logger.warning(lambda: "Executing as superuser: %s" % command_args)
         subprocess.check_call(["pkexec"] + list(command_args))

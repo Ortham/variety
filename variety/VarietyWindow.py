@@ -1516,7 +1516,7 @@ class VarietyWindow(Gtk.Window):
             return (
                 Util.get_xdg_pictures_folder()
                 if not Util.is_home_encrypted()
-                else "/usr/share/backgrounds"
+                else Util.get_system_backgrounds_path()
             )
         else:
             return os.path.normpath(option)
@@ -1922,13 +1922,13 @@ class VarietyWindow(Gtk.Window):
         if not file:
             file = self.current
         if file:
-            subprocess.Popen(["xdg-open", os.path.dirname(file)])
+            Util.open_path(os.path.dirname(file))
 
     def open_file(self, widget=None, file=None):
         if not file:
             file = self.current
         if file:
-            subprocess.Popen(["xdg-open", os.path.realpath(file)])
+            Util.open_path(os.path.realpath(file))
 
     def on_show_origin(self, widget=None):
         if self.url:
@@ -2983,7 +2983,7 @@ class VarietyWindow(Gtk.Window):
 
     def quote_view_favorites(self, widget=None):
         if os.path.isfile(self.options.quotes_favorites_file):
-            subprocess.Popen(["xdg-open", self.options.quotes_favorites_file])
+            Util.open_path(self.options.quotes_favorites_file)
 
     def on_quotes_pause_resume(self, widget=None, change_enabled=None):
         if change_enabled is None:
