@@ -8,7 +8,7 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Displaying wallpapers from Bing
 - Displaying wallpapers from Nasa
 - Displaying wallpapers from a local folder inside $HOME/Pictures
-- Displaying quotes from Goodreads, TheQuotationsPage.com and Urban Dictionary
+- Displaying quotes from Goodreads, TheQuotationsPage.com, Unix fortune program and Urban Dictionary
 - Wallpaper effects
 - Clock
 - Fetch folder clipboard monitoring
@@ -19,6 +19,7 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Desktop icon actions
 - App indicator actions
 - Open folder
+- Autostart
 
 ## Things untested
 
@@ -33,8 +34,6 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 
 ## Known issues
 
-- The autostart option creates a variety.desktop file in the right place, but its Exec command references the variety bin path inside the Flatpak sandbox, so won't work.
-    - Probably need to use a different template if Variety is running as a Flatpak.
 - The get_wallpaper script always returns the default wallpaper on GNOME 3
 - Wallpaper move to favourites causes a hang
 
