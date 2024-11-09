@@ -16,6 +16,9 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Wallpaper change timer
 - Wallpaper change on start
 - Indicator icon options (light, dark, 1, 2, 3, 4, current wallpaper, custom image and none)
+- Desktop icon actions
+- App indicator actions
+- Open folder
 
 ## Things untested
 
@@ -25,12 +28,14 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Display mode options
 - Fetch folder drag 'n' drop
 - Login screen support
+- Profiles
 
 ## Known issues
 
-- Favourite operations: only Copy is shown no matter which option is selected in the dropdown
 - The autostart option creates a variety.desktop file in the right place, but its Exec command references the variety bin path inside the Flatpak sandbox, so won't work.
     - Probably need to use a different template if Variety is running as a Flatpak.
+- The get_wallpaper script always returns the default wallpaper on GNOME 3
+- Wallpaper move to favourites causes a hang
 
 Some other issues that probably aren't Flatpak-specific:
 

@@ -822,11 +822,50 @@ class Util:
 
     @staticmethod
     def open_path(path):
+        print('Attempting to open path', path)
+
+        path = Util.resolve_path(path)
+
         subprocess.Popen(["xdg-open", path])
 
     @staticmethod
+    def is_flatpak():
+        return 'FLATPAK_ID' in os.environ
+
+    @staticmethod
+    def resolve_path(path):
+        host_mount = "/run/host"
+
+        if Util.is_flatpak():
+            if path.startswith('/usr'):
+                # Probably running as a Flatpak
+                original_path = path
+                path = host_mount + path
+                print('Mapped {} to {}'.format(original_path, path))
+            elif path.startswith("/run/host"):
+                original_path = path
+                path = path[9:]
+                print('Mapped {} to {}'.format(original_path, path))
+
+            user = os.environ.get("USER")
+            flatpak_config = "/var/home/{}/.config/variety/".format(user)
+            if path.startswith(flatpak_config):
+                flatpak_id = os.environ.get("FLATPAK_ID")
+                path_suffix = path[len(flatpak_config):]
+                original_path = path
+                path = "/home/{}/.var/app/{}/.config/variety/{}".format(user, flatpak_id, path_suffix)
+                print('Mapped {} to {}'.format(original_path, path))
+
+        return path
+
+    @staticmethod
     def get_system_backgrounds_path():
-        return "/usr/share/backgrounds"
+        path = "/usr/share/backgrounds"
+
+        if Util.is_flatpak():
+            return "/run/host" + path
+
+        return path
 
     @staticmethod
     def superuser_exec(*command_args):

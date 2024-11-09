@@ -17,19 +17,18 @@ finish-args:
   - --talk-name=org.kde.StatusNotifierWatcher
   # Needed for notifications to work.
   - --talk-name=org.freedesktop.Notifications
-  # Store files on the host so that the system can access downloaded wallpapers.
-  - --filesystem=xdg-config/variety
-  - --filesystem=xdg-config/variety-profiles
-  # Read images to display as wallpapers
-  - --filesystem=xdg-pictures:ro
-  # Read wallpapers from /usr/share/backgrounds
+  # TODO: Test if this is needed or if it should be a persisted directory.
+  # - --filesystem=xdg-config/variety-profiles
+  # Config is hardcoded to be in ~/.config/variety, so persist it.
+  - --persist=.config/variety
+  # The code also hardcodes ~/Pictures, but only as a fallback to xdg-pictures, which will always be defined in a Flatpak. Write access is needed for "Move to Favourites" functionality.
+  - --filesystem=xdg-pictures
+  # Read wallpapers from /usr/share/backgrounds.
   - --filesystem=host-os:ro
-  # FIXME: Disabled because the desktop files created don't know that it's a Flatpak app.
   # Register Variety to start on login
   - --filesystem=~/.config/autostart
-  # Create a desktop file for Variety
-  # Probably best to leave this to Flatpak itself.
-  #- --filesystem=~/.local/share/applications
+  # Create a desktop file for different Variety profiles
+  - --filesystem=~/.local/share/applications
   # Read the current LXQt wallpaper
   - --filesystem=xdg-config/pcmanfm-qt/lxqt/settings.conf:ro
   # Read the current KDE 5 wallpaper
@@ -149,21 +148,25 @@ modules:
   - name: Variety
     buildsystem: simple
     build-commands:
-      # variety.py is apparently needed by the setup script.
-      # - cp bin/variety bin/variety.py
       - python3 setup.py install --prefix /app
-      # Remove variety.py again to avoid startup failure.
+
       - mv /app/share/metainfo/variety.appdata.xml /app/share/metainfo/io.github.varietywalls.variety.metainfo.xml
       - mv /app/share/applications/variety.desktop /app/share/applications/io.github.varietywalls.variety.desktop
+
       - mv /app/share/icons/hicolor/scalable/apps/variety.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety.svg
       - mv /app/share/icons/hicolor/22x22/apps/variety-indicator-dark.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-dark.png
       - mv /app/share/icons/hicolor/22x22/apps/variety-indicator.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator.png
-      - mv /app/share/variety/media/variety-indicator-num1.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num1.png
-      - mv /app/share/variety/media/variety-indicator-num2.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num2.png
-      - mv /app/share/variety/media/variety-indicator-num3.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num3.png
-      - mv /app/share/variety/media/variety-indicator-num4.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num4.png
 
-      # - rm /app/bin/variety.py
+      - mv /app/share/variety/media/variety-indicator.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety-indicator.svg
+      - mv /app/share/variety/media/variety-indicator-dark.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety-indicator-dark.svg
+      - mv /app/share/variety/media/variety-indicator-num1.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num1.png
+      - mv /app/share/variety/media/variety-indicator-num1.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety-indicator-num1.svg
+      - mv /app/share/variety/media/variety-indicator-num2.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num2.png
+      - mv /app/share/variety/media/variety-indicator-num2.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety-indicator-num2.svg
+      - mv /app/share/variety/media/variety-indicator-num3.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num3.png
+      - mv /app/share/variety/media/variety-indicator-num3.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety-indicator-num3.svg
+      - mv /app/share/variety/media/variety-indicator-num4.png /app/share/icons/hicolor/22x22/apps/io.github.varietywalls.variety-indicator-num4.png
+      - mv /app/share/variety/media/variety-indicator-num4.svg /app/share/icons/hicolor/scalable/apps/io.github.varietywalls.variety-indicator-num4.svg
     sources:
       - type: dir
         path: ..

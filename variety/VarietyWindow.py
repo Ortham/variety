@@ -617,7 +617,7 @@ class VarietyWindow(Gtk.Window):
         if type == Options.SourceType.IMAGE:
             return None
         elif type in Options.SourceType.LOCAL_PATH_TYPES:
-            return location
+            return Util.resolve_path(location)
         elif type == Options.SourceType.FAVORITES:
             return self.options.favorites_folder
         elif type == Options.SourceType.FETCHED:
@@ -2764,6 +2764,7 @@ class VarietyWindow(Gtk.Window):
                 % (wallpaper, auto, original_file, display_mode)
             )
             try:
+                wallpaper = Util.resolve_path(wallpaper)
                 subprocess.check_call(
                     [script, wallpaper, auto, original_file, display_mode], timeout=10
                 )
