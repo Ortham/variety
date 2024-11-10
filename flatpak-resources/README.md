@@ -34,7 +34,6 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 
 ## Known issues
 
-- Wallpaper move to favourites causes a hang
 - Set EXIF Rating submenu dropdown is empty
 - AppIndicator -> Quote -> Copy to Clipboard does nothing
     - Might be a Wayland issue?
