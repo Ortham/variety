@@ -41,6 +41,9 @@ finish-args:
   - --env=GIO_EXTRA_MODULES=/app/lib/gio/modules/
 cleanup:
 # TODO: Figure out what's needed at runtime, remove everything else.
+  - /bin/dbus-*
+  - /bin/normalizer
+  - /include
 modules:
   - build-requirements.json
   - non-isolated-build-requirements.json
@@ -62,6 +65,9 @@ modules:
       - type: archive
         url: https://dbus.freedesktop.org/releases/dbus/dbus-1.14.10.tar.xz
         sha256: ba1f21d2bd9d339da2d4aa8780c09df32fea87998b73da24f49ab9df1e36a50f
+    cleanup:
+      - /etc/dbus-1
+      - /share/doc/dbus
 
   - non-isolated-requirements.json
 
@@ -79,6 +85,8 @@ modules:
       - type: archive
         url:  https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.1.tar.gz
         sha256: 3078651f995cb6313b1041f07f4dd1bf0e9e4d394d6e2adc6e92ad0b621291fa
+    cleanup:
+      - /bin/exiv2
 
   - name: gexiv2
     buildsystem: meson
@@ -92,6 +100,8 @@ modules:
       - type: archive
         url:  https://download.gnome.org/sources/gexiv2/0.14/gexiv2-0.14.2.tar.xz
         sha256: 2a0c9cf48fbe8b3435008866ffd40b8eddb0667d2212b42396fdf688e93ce0be
+    cleanup:
+      - /share/vala/vapi/gexiv2.*
 
   # Optional runtime dependency
   - name: ImageMagick
@@ -103,6 +113,19 @@ modules:
       - type: archive
         url: https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-39.tar.gz
         sha256: b2eb652d9221bdeb65772503891d8bfcfc36b3b1a2c9bb35b9d247a08965fd5d
+    cleanup:
+      - /bin/animate
+      - /bin/compare
+      - /bin/composite
+      - /bin/conjure
+      - /bin/display
+      - /bin/import
+      - /bin/magick-script
+      - /bin/Magick*
+      - /bin/mogrify
+      - /bin/montage
+      - /bin/stream
+      - /share/doc/ImageMagick-7
 
   # Build dependency for Feh
   - name: Imlib2
@@ -115,6 +138,8 @@ modules:
         # I'm not sure if this is a stable URL.
         url: https://kumisystems.dl.sourceforge.net/project/enlightenment/imlib2-src/1.12.3/imlib2-1.12.3.tar.xz?viasf=1
         sha256: 96244656576a3e0a6f58b78e514ddc919622ac6806711bc231837eee62c1de34
+    cleanup:
+      - /bin/imlib2_*
 
   # Optional runtime dependency
   # Nitrogen is an alternative but needs GTK 2, which is harder to supply.
@@ -128,6 +153,8 @@ modules:
       - type: archive
         url: https://feh.finalrewind.org/feh-3.10.3.tar.bz2
         sha256: 5426e2799770217af1e01c2e8c182d9ca8687d84613321d8ab4a66fe4041e9c8
+    cleanup:
+      - /share/doc/feh
 
   # Optional runtime dependency
   - ../shared-modules/libayatana-appindicator/libayatana-appindicator-gtk3.json
@@ -141,12 +168,18 @@ modules:
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DNO_OFFENSIVE=TRUE
+    post-install:
+      - mv /app/games/fortune ../bin/fortune
     sources:
       - type: archive
         url: https://github.com/shlomif/fortune-mod/releases/download/fortune-mod-3.22.0/fortune-mod-3.22.0.tar.xz
         sha256: 069321bb4d4ae3abf55493d043cea06534dc93f1a2c29e86694d9edb1380a0e3
       - type: patch
         path: patches/fortune-mod-no-man.patch
+    sources:
+      - /bin/rot
+      - /bin/strfile
+      - /bin/unstr
 
   # Need dconf to actually read/write settings on GNOME
   - name: DConf
@@ -159,13 +192,13 @@ modules:
       - type: archive
         url: https://download.gnome.org/sources/dconf/0.40/dconf-0.40.0.tar.xz
         sha256: cf7f22a4c9200421d8d3325c5c1b8b93a36843650c9f95d6451e20f0bcb24533
+    cleanup:
+      - /libexec/dconf-service
 
   - name: Variety
     buildsystem: simple
     build-commands:
       - python3 setup.py install --prefix /app
-
-      - cp /app/games/fortune /app/bin/fortune
 
       - mv /app/share/metainfo/variety.appdata.xml /app/share/metainfo/io.github.varietywalls.variety.metainfo.xml
       - mv /app/share/applications/variety.desktop /app/share/applications/io.github.varietywalls.variety.desktop
