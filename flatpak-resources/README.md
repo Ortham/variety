@@ -8,7 +8,9 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 - Displaying wallpapers from Bing
 - Displaying wallpapers from Nasa
 - Displaying wallpapers from a local folder inside $HOME/Pictures
-- Displaying quotes from Goodreads, TheQuotationsPage.com, Unix fortune program and Urban Dictionary
+- Displaying quotes from Goodreads, local text files, TheQuotationsPage.com, Unix fortune program and Urban Dictionary
+- Auto-rotation
+- Display mode options
 - Wallpaper effects
 - Clock
 - Fetch folder clipboard monitoring
@@ -23,13 +25,9 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 
 ## Things untested
 
-- Behaviour on DEs other than GNOME
+- Behaviour on DEs other than GNOME 3
 - Behaviour on X11
-- Displaying quotes from local text files
-- Auto-rotation
-- Display mode options
 - Fetch folder drag 'n' drop
-- Login screen support
 - Profiles
 - Variety slideshow integration
 
@@ -44,3 +42,5 @@ Some other issues that aren't Flatpak-specific:
 - Set EXIF Rating submenu dropdown is empty
 - AppIndicator -> Quote -> Copy to Clipboard does nothing
     - Might be a Wayland issue?
+- Login screen support doesn't seem to do anything
+    - Might be an issue specific to GNOME 3?
