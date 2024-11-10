@@ -4,7 +4,7 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 
 ## Things tested
 
-- Setting the wallpaper in GNOME 3
+- Setting the wallpaper in GNOME 3 on Wayland
 - Displaying wallpapers from Bing
 - Displaying wallpapers from Nasa
 - Displaying wallpapers from a local folder inside $HOME/Pictures
@@ -24,6 +24,7 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 ## Things untested
 
 - Behaviour on DEs other than GNOME
+- Behaviour on X11
 - Displaying quotes from local text files
 - Auto-rotation
 - Display mode options
@@ -34,13 +35,12 @@ There are a few TODOs and FIXMEs in the manifest file, but here are some additio
 
 ## Known issues
 
-- Set EXIF Rating submenu dropdown is empty
-- AppIndicator -> Quote -> Copy to Clipboard does nothing
-    - Might be a Wayland issue?
-
-Some other issues that probably aren't Flatpak-specific:
+Some other issues that aren't Flatpak-specific:
 
 - Flickr photo download fails with an API key error
 - Google Earth View responds with a 404
 - Fails to parse the Nat Geo server-side response
 - AppIndicator -> Quote -> View at UNIX fortune program does nothing
+- Set EXIF Rating submenu dropdown is empty
+- AppIndicator -> Quote -> Copy to Clipboard does nothing
+    - Might be a Wayland issue?
