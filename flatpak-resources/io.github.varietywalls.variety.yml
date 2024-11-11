@@ -198,6 +198,11 @@ modules:
   - name: Variety
     buildsystem: simple
     build-commands:
+      - sed -i 's|<id>variety.desktop</id>|<id>io.github.varietywalls.variety</id>|' variety.appdata.xml
+      - sed -i 's|<launchable type="desktop-id">variety.desktop</launchable>|<launchable type="desktop-id">io.github.varietywalls.variety.desktop</launchable>|' variety.appdata.xml
+      - sed -i 's|Icon=variety|Icon=io.github.varietywalls.variety|' variety.desktop.in
+      - sed -i 's|APP_ID = "variety"|APP_ID = "io.github.varietywalls.variety"|' variety/indicator.py
+
       - python3 setup.py install --prefix /app
 
       - mv /app/share/metainfo/variety.appdata.xml /app/share/metainfo/io.github.varietywalls.variety.metainfo.xml

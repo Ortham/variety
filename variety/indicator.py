@@ -24,9 +24,10 @@ from gi.repository import Gtk  # pylint: disable=E0611
 from variety.Util import Util, _
 from variety_lib import varietyconfig
 
-THEME_ICON_NAME = "io.github.varietywalls.variety-indicator"
-THEME_ICON_NAME_DARK = "io.github.varietywalls.variety-indicator-dark"
-THEME_ICON_NAME_NUM = "io.github.varietywalls.variety-indicator-num{}"
+APP_ID = "variety"
+THEME_ICON_NAME = APP_ID + "-indicator"
+THEME_ICON_NAME_DARK = APP_ID + "-indicator-dark"
+THEME_ICON_NAME_NUM = APP_ID + "-indicator-num{}"
 
 try:
     import gi
