@@ -822,13 +822,13 @@ class Util:
 
     @staticmethod
     def open_path(path):
-        print('Attempting to open path', path)
+        logger.debug(lambda: 'Attempting to open path %s' % path)
 
         if Util.is_flatpak():
             if Util.is_host_usr_path():
                 path = Util.resolve_path(path)
             elif Util.is_flatpak_config_path(path):
-                path = "/var" + Util.resolve_path(path)
+                path = Util.map_path(path, "/var" + Util.resolve_path(path))
 
         subprocess.Popen(["xdg-open", path])
 
@@ -848,7 +848,7 @@ class Util:
 
     @staticmethod
     def map_path(original_path, new_path):
-        print("Mapped {} to {}".format(original_path, new_path))
+        logger.debug(lambda: 'Mapped path %s to %s' % original_path % new_path)
         return new_path
 
     @staticmethod
