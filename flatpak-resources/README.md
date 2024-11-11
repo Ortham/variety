@@ -1,7 +1,5 @@
 # Variety Flatpak
 
-There are a few TODOs and FIXMEs in the manifest file, but here are some additional notes.
-
 ## Things tested
 
 - Setting the wallpaper in GNOME 3 on Wayland
@@ -44,3 +42,9 @@ Some other issues that aren't Flatpak-specific:
     - Might be a Wayland issue?
 - Login screen support doesn't seem to do anything
     - Might be an issue specific to GNOME 3?
+
+## Other notes
+
+- I've used `io.github.varietywalls.variety` as the app ID, but maybe it should be `com.peterlevi.Variety`? [Verifying the app on Flathub](https://docs.flathub.org/docs/for-app-authors/verification/#im-publishing-an-app-on-flathub-how-do-i-get-it-verified) is easier using the GitHub ID than the website ID.
+- The AppData XML file probably needs changes before it'll pass [Flathub validation](https://docs.flathub.org/docs/for-app-authors/metainfo-guidelines/), I haven't checked.
+- There are a couple of TODOs in the manifest file.
